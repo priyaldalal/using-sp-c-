@@ -137,5 +137,30 @@ namespace hello.DAL
             }
             return str;
         }
+        
+         public DataTable GetData(BAL_FORM objBal)
+        {
+            try
+            {
+                connect();
+                cmd.Connection = con;
+                cmd.CommandText = "dbo.SP_WEB_USER_FORM";
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("ACTION", "SELMENUBYLOGIN");
+                cmd.Parameters.AddWithValue("UserID", objBal.USERID);
+                cmd.Parameters.AddWithValue("UserName", objBal.UserName);
+                cmd.Parameters.AddWithValue("PASSWORD", objBal.Password);
+                
+                da.Fill(dt);
+            }
+            catch (Exception )
+            {
+            }
+            finally
+            {
+                disconnect();
+            }
+            return dt;
+        }
     }
 }
