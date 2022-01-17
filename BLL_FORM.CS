@@ -37,6 +37,11 @@ namespace hello.BLL
             DAL_FORM objDal = new DAL_FORM();
             return objDal.UPDATE(objBal);
         }
+        public DataTable GetData(BAL_FORM objBal)
+        {
+            DAL_FORM objDal = new DAL_FORM();
+            return objDal.GetData(objBal);
+        }
         
     }
 }
