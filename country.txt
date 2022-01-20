@@ -1,0 +1,334 @@
+<%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="WebForm1.aspx.cs" Inherits="country.WebForm1" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <div class="content-wrapper">
+        <div class="row">
+
+            <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Basic form elements</h4>
+                        <p class="card-description">
+                            Basic form elements
+                 
+                        </p>
+                        <form class="forms-sample" onsubmit="return validateForm()" name="f1">
+                            <div class="form-group row">
+                                <label for="exampleInputUsername2" class="col-sm-3 col-form-label">ID</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="ID" placeholder="ID" name="ID" disabled />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Country</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="txtcountry" placeholder="Country" name="txtcountry" required />
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Country CODE</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="txtcountrycode" name="txtcountrycode" placeholder="Countrycode" required />
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-primary mr-2" onclick="CallClientToServer();" id="submit" name="submit">Submit </button>
+
+                            <button type="button" class="btn btn-primary mr-2" onclick="CallUPDATE();">UPDATE</button>
+                            <button type="button" class="btn btn-primary mr-2" onclick="CALLDELETE();">DELELTE</button>
+                            <button class="btn btn-light">Cancel</button>
+                        </form>
+                        <div class="table-responsive">
+                            <table class="table table-hover" id="tblData">
+                                <thead>
+                                    <tr>
+                                        <th>Action</th>
+                                        <th>COUNTRY</th>
+                                        <th>COUNTRYCODE</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <%--<form class="forms-sample">
+        <div class="form-group row">
+            <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Country</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="txtcountry" placeholder="Country">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Country CODE</label>
+            <div class="col-sm-9">
+                <input type="text" class="form-control" id="txtcountrycode" placeholder="Countrycode">
+            </div>
+        </div>
+
+
+
+        <button type="button" class="btn btn-primary mr-2" onclick=" CallClientToServer();">Submit </button>
+        <button type="button" class="btn btn-primary mr-2" onclick="CallUPDATE();">UPDATE</button>
+        <button type="button" class="btn btn-primary mr-2" onclick="CALLDELETE();">DELELTE</button>
+        <button class="btn btn-light">Cancel</button>
+    </form>--%>
+
+    <%--<table class="table" id="tblData">
+        <thead>
+            <tr>
+                <th>Action</th>
+                <th>COUNTRY</th>
+                <th>COUNTRYCODE</th>
+                <th>ID</th>
+
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>--%>
+
+
+    <%--<form class="forms-sample">
+                    <div class="form-group row">
+                      <label for="exampleInputUsername2" class="col-sm-3 col-form-label">Country</label>
+                      <div class="col-sm-9">
+                         <select class="form-control" id="ddlBranch">
+                                              
+                                            </select>
+                      </div>
+                    </div>
+                    <div class="form-group row">
+                      <label for="exampleInputEmail2" class="col-sm-3 col-form-label">State</label>
+                      <div class="col-sm-9">
+                        <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Email">
+                      </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                    <button class="btn btn-light">Cancel</button>
+                  </form>--%>
+
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            //success toast
+            //$('#successtoast').click(function () {
+
+            toastr.options = {
+                "closeButton": true,
+                "debug": true,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "showDuration": "300",
+                "hideDuration": "1000000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+            //toastr["info"]("Thanks for your support", "Hello BBBootstrap");
+            //toastr["success"]("Thanks for your support", "Hello BBBootstrap");
+            //toastr["warning"]("Thanks for your support", "Hello BBBootstrap");
+            //});
+
+        });
+    </script>
+    <script>
+        //function chech() {
+        //    $(document).ready(function () {
+        //        $("#submit").click(function () {
+        //            $('input').attr('required', true);
+        //            $('input').css('border', '1px solid red');
+
+        //            document.getElementById("GFG_down").innerHTML
+        //                       = "Required attribute enabled";
+        //        });
+        //    });
+        //}
+        //$('form input[type="text"]').each(function () {
+        //    // Do your magic here
+        //    if (this.value == "") // regular expression for numbers only.
+        //        alert("insert data");
+        //});
+
+
+        //function validateForm() {
+        //    let x = document.forms["f1"]["txtcountry"].value;
+        //    let y = document.forms["f1"]["txtcountrycode"].value;
+        //    if (x == "",y == "") {
+        //        alert("Name must be filled out");
+        //        return false;
+        //    }
+        //}
+        //$(document).ready(function () {
+        //    $("#submit").click(function () {
+        //        CallClientToServer();
+        //    })
+        //});
+    </script>
+    <script type="text/javascript">
+
+        function CallClientToServer() {
+            $.ajax({
+                type: "POST",
+                url: "WebForm1.aspx/Save",
+                data: JSON.stringify({ COUNTRY: $("#txtcountry").val(), COUNTRYCODE: $("#txtcountrycode").val(), }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    if (response.d == 'y') {
+                        toastr["success"]("Country Save Successfully", "Save ");
+                    } else {
+                        toastr["warning"]("Error while saving record", "Error");
+                    }
+                },
+                error: function () {
+                    toastr.error('There is problem request', 'infomation error', new { timeOut: 300 });
+                }
+                //failure: function (response) {
+                //    alert(response.d);
+                //}
+            });
+        }
+        function OnSuccess(response) {
+            alert(response.d);
+        }
+
+        function GETALL() {
+            $.ajax({
+                type: "POST",
+                url: "WebForm1.aspx/GetAll",
+
+                contentType: "application/json; charset=utf-8",
+                dataType: "JSON",
+                //data: postdata,
+                success: function (response) {
+                    var datatable = $("#tblData tbody").empty();
+                    $(response.d).find("tblData").each(function () {
+
+                        var COUNTRY = $(this).find("COUNTRY").text();
+                        var COUNTRYCODE = $(this).find("COUNTRYCODE").text();
+
+                        var ID = $(this).find("ID").text();
+                        var viewbtn = "<input type='button' onclick='GETDETAIL(\"" + ID + "\")' value='View'>";
+
+                        var row = $("<tr><td>" + viewbtn + "</td><td>" + COUNTRY + "</td><td>" + COUNTRYCODE + "</td></tr>")
+                        $(datatable).append(row);
+                    });
+                },
+                failure: function (response) {
+
+                }
+            });
+        }
+
+
+        function GETDETAIL(_ID) {
+            $.ajax({
+                type: "POST",
+                url: "WebForm1.aspx/GETDETAIL",
+                data: JSON.stringify({ ID: _ID }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "JSON",
+                //data: postdata,
+                success: function (response) {
+                    $(response.d).find("tblData").each(function () {
+
+                        var COUNTRY = $(this).find("COUNTRY").text();
+                        var COUNTRYCODE = $(this).find("COUNTRYCODE").text();
+
+                        var ID = $(this).find("ID").text();
+
+                        $("#txtcountry").val(COUNTRY);
+                        $("#txtcountrycode").val(COUNTRYCODE);
+
+                        $("#ID").val(ID);
+                    });
+                },
+                failure: function (response) {
+
+                }
+            });
+        }
+
+        function CallUPDATE() {
+            $.ajax({
+                type: "POST",
+                url: "WebForm1.aspx/UPDATE",
+                data: JSON.stringify({ ID: $("#ID").val(), COUNTRY: $("#txtcountry").val(), COUNTRYCODE: $("#txtcountrycode").val() }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    if (response.d == 'y') {
+                        toastr["success"]("Country Save Successfully", "Save ");
+                    } else {
+                        toastr["warning"]("Error while saving record", "Error");
+                    }
+                },
+                error: function () {
+                    toastr.error('There is problem request', 'infomation error', new { timeOut: 300 });
+                },
+                    //alert(response.d);
+                //    GETALL();
+                //    $("#ID").val(), $("#txtcountry").val(), $("#txtcountrycode").val()
+                //},
+            //    failure: function (response) {
+            //        alert(response.d);
+            //    }
+            });
+        }
+        function OnSuccess(response) {
+            alert(response.d);
+        }
+
+
+        function CALLDELETE() {
+            $.ajax({
+                type: "POST",
+                url: "WebForm1.aspx/DELETE",
+                data: JSON.stringify({ ID: $("#ID").val() }),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    alert(response.d);
+                    GETALL();
+                    $("#ID").val(), $("#txtcountry").val(), $("#txtcountrycode").val()
+                },
+                failure: function (response) {
+                    alert(response.d);
+                }
+            });
+        }
+        function OnSuccess(response) {
+            alert(response.d);
+        }
+
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            GETALL();
+        });
+    </script>
+</asp:Content>
