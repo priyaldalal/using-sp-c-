@@ -1,0 +1,60 @@
+<title>Laravel 8 Toastr Notification Example - websolutionstuff.com</title>
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha/css/bootstrap.css" rel="stylesheet">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<div class="page-content page-container" id="page-content">
+    <div class="padding">
+        <div class="row container d-flex justify-content-center"> <button type="button" id="successtoast" class="btn btn-primary btn-icon-text"> <i class="fa fa-check btn-icon-prepend"></i>Top Right Toast </button> </div>
+    </div>
+</div>
+<style>
+    .btn {
+        margin-right: 0.5rem !important;
+    }
+
+    .btn {
+        font-size: 0.875rem;
+        line-height: 1;
+        font-weight: 400;
+        padding: .7rem 1.5rem;
+        border-radius: 0.1275rem;
+    }
+
+    .container {
+        margin-top: 100px;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+
+        //success toast
+        $('#successtoast').click(function () {
+
+            toastr.options = {
+                "closeButton": true,
+                "debug": true,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-top-right",
+                "preventDuplicates": false,
+                "showDuration": "300",
+                "hideDuration": "1000000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+            toastr["info"]("Thanks for your support", "Hello BBBootstrap");
+            toastr["success"]("Thanks for your support", "Hello BBBootstrap");
+            toastr["warning"]("Thanks for your support", "Hello BBBootstrap");
+        });
+
+    });
+</script>
